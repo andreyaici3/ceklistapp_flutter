@@ -76,7 +76,7 @@ class _DashboardPagesState extends State<DashboardPages> {
                                           ),
                                         );
                                       },
-                                      child: const Text("Edit"),
+                                      child: const Text("Tambah Sub"),
                                     ),
                                     TextButton(
                                       onPressed: () {
