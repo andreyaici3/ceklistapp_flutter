@@ -127,7 +127,7 @@ class _DashboardPagesState extends State<DashboardPages> {
                                   ],
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         );
                       },
