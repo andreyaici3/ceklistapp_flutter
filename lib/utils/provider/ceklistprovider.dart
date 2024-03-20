@@ -44,6 +44,21 @@ class CekListProvider with ChangeNotifier {
     return response;
   }
 
+  Future saveSubItem(int ceklistId, String item) async {
+    final dio = Dio();
+
+    final response = await dio.post("$url/checklist/$ceklistId/item",
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
+        ),
+        data: {"itemName": item});
+
+    return response;
+  }
+
   Future deleteItem(int id) async {
     final dio = Dio();
 

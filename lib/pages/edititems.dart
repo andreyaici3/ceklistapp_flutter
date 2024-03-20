@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_test/pages/dashboard.dart';
 import 'package:frontend_test/utils/provider/ceklistprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,6 @@ class _EditItemsPagesState extends State<EditItemsPages> {
   @override
   Widget build(BuildContext context) {
     final cekList = Provider.of<CekListProvider>(context, listen: false);
-    item.text = cekList.getAllItem!.data[widget.id].name;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -71,9 +71,22 @@ class _EditItemsPagesState extends State<EditItemsPages> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("Fitur Belum Selesai")));
+                          setState(() {
+                            isLoading = true;
+                          });
+                          cekList
+                              .saveSubItem(widget.id, item.text)
+                              .then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(value["message"])));
+                            Navigator.of(context)
+                                .popUntil((route) => route.isFirst);
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const DashboardPages(),
+                              ),
+                            );
+                          });
                         },
                         child: const Text("Tambah"),
                       ),
