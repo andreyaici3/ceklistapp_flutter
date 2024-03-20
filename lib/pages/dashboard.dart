@@ -108,34 +108,43 @@ class _DashboardPagesState extends State<DashboardPages> {
                             const SizedBox(
                               height: 5,
                             ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 20, right: 8),
-                              child: Card(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          Checkbox(
-                                            value: false,
-                                            onChanged: (value) {},
+                            ...[
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount:
+                                    snapshot.data!.data[index].items!.length,
+                                itemBuilder: (context, index) => Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 20, right: 8),
+                                  child: Card(
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Checkbox(
+                                                value: false,
+                                                onChanged: (value) {},
+                                              ),
+                                              Text("Sub Item"),
+                                            ],
                                           ),
-                                          Text("Sub Item"),
-                                        ],
-                                      ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {},
+                                          child: const Text("Edit"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {},
+                                          child: Text("Hapus"),
+                                        ),
+                                      ],
                                     ),
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: const Text("Edit"),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: Text("Hapus"),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
+                                shrinkWrap: true,
+                              )
+                            ],
                             const SizedBox(
                               height: 15,
                             ),
