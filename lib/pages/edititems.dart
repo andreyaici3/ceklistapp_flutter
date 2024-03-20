@@ -50,7 +50,7 @@ class _EditItemsPagesState extends State<EditItemsPages> {
                     ),
                     const Center(
                       child: Text(
-                        "Edit Ceklist Item",
+                        "Tambah Sub Item",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class _EditItemsPagesState extends State<EditItemsPages> {
                               const SnackBar(
                                   content: Text("Fitur Belum Selesai")));
                         },
-                        child: const Text("Simpan"),
+                        child: const Text("Tambah"),
                       ),
                     ),
                   ],
