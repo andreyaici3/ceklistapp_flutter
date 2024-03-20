@@ -71,22 +71,27 @@ class _EditItemsPagesState extends State<EditItemsPages> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          cekList
-                              .saveSubItem(widget.id, item.text)
-                              .then((value) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(value["message"])));
-                            Navigator.of(context)
-                                .popUntil((route) => route.isFirst);
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const DashboardPages(),
-                              ),
-                            );
-                          });
+                          // setState(() {
+                          //   isLoading = true;
+                          // });
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Fitur Belum Tersedia")));
+                          // cekList
+                          //     .saveSubItem(
+                          //         cekList.getAllItem!.data[widget.id].id,
+                          //         item.text)
+                          //     .then((value) {
+
+                          //   Navigator.of(context)
+                          //       .popUntil((route) => route.isFirst);
+                          //   Navigator.of(context).pushReplacement(
+                          //     MaterialPageRoute(
+                          //       builder: (context) => const DashboardPages(),
+                          //     ),
+                          //   );
+                          // });
                         },
                         child: const Text("Tambah"),
                       ),
