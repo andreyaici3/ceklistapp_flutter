@@ -71,9 +71,9 @@ class _EditItemsPagesState extends State<EditItemsPages> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            isLoading = true;
-                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Fitur Belum Selesai")));
                         },
                         child: const Text("Simpan"),
                       ),
