@@ -58,8 +58,7 @@ class _DashboardPagesState extends State<DashboardPages> {
                                         children: [
                                           Checkbox(
                                             value: snapshot.data!.data[index]
-                                                    .checklistCompletionStatus ??
-                                                false,
+                                                .checklistCompletionStatus,
                                             onChanged: (value) {},
                                           ),
                                           Text(snapshot.data!.data[index].name),

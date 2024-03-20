@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_test/pages/dashboard.dart';
 import 'package:frontend_test/utils/provider/ceklistprovider.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class EditItemsPages extends StatefulWidget {
   int id;
   EditItemsPages({super.key, required this.id});
@@ -67,7 +67,7 @@ class _EditItemsPagesState extends State<EditItemsPages> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
