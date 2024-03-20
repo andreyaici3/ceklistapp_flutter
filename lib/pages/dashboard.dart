@@ -112,7 +112,7 @@ class _DashboardPagesState extends State<DashboardPages> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount:
                                     snapshot.data!.data[index].items!.length,
-                                itemBuilder: (context, index) => Container(
+                                itemBuilder: (context, indexs) => Container(
                                   margin:
                                       const EdgeInsets.only(left: 20, right: 8),
                                   child: Card(
@@ -125,7 +125,8 @@ class _DashboardPagesState extends State<DashboardPages> {
                                                 value: false,
                                                 onChanged: (value) {},
                                               ),
-                                              Text("Sub Item"),
+                                              Text(snapshot.data!.data[index]
+                                                  .items![indexs].name),
                                             ],
                                           ),
                                         ),
