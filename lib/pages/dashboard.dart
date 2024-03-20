@@ -109,7 +109,7 @@ class _DashboardPagesState extends State<DashboardPages> {
                               height: 5,
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 20),
+                              margin: const EdgeInsets.only(left: 20, right: 8),
                               child: Card(
                                 child: Row(
                                   children: [
@@ -124,10 +124,21 @@ class _DashboardPagesState extends State<DashboardPages> {
                                         ],
                                       ),
                                     ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: const Text("Edit"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Text("Hapus"),
+                                    ),
                                   ],
                                 ),
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
                           ],
                         );
                       },
