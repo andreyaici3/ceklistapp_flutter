@@ -1,0 +1,101 @@
+import 'package:flutter/material.dart';
+import 'package:frontend_test/pages/addItems.dart';
+import 'package:frontend_test/utils/provider/ceklistprovider.dart';
+import 'package:provider/provider.dart';
+
+class DashboardPages extends StatefulWidget {
+  const DashboardPages({super.key});
+
+  @override
+  State<DashboardPages> createState() => _DashboardPagesState();
+}
+
+class _DashboardPagesState extends State<DashboardPages> {
+  @override
+  Widget build(BuildContext context) {
+    final cekList = Provider.of<CekListProvider>(context, listen: false);
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Ceklist App",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.blue,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const AddItemsPages(),
+            ));
+          },
+          child: const Icon(Icons.add),
+        ),
+        body: SafeArea(
+          child: FutureBuilder(
+            future: cekList.getAll(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return Container(
+                    padding: const EdgeInsets.all(10),
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.data.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Card(
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Checkbox(
+                                        value:
+                                            snapshot.data!.data[index].items ??
+                                                false,
+                                        onChanged: (value) {},
+                                      ),
+                                      Text(snapshot.data!.data[index].name),
+                                    ],
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: Text("Edit"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    cekList
+                                        .deleteItem(
+                                            snapshot.data!.data[index].id)
+                                        .then((value) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(value["message"])));
+                                      Navigator.of(context)
+                                          .popUntil((route) => route.isFirst);
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const DashboardPages(),
+                                        ),
+                                      );
+                                    });
+                                  },
+                                  child: Text("Hapus"),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ));
+              }
+            },
+          ),
+        ));
+  }
+}
