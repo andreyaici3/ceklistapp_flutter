@@ -8,6 +8,10 @@ class CekListProvider with ChangeNotifier {
   String token =
       "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W119.i2OVQdxr08dmIqwP7cWOJk5Ye4fySFUqofl-w6FKbm4EwXTStfm0u-sGhDvDVUqNG8Cc7STtUJlawVAP057Jlg";
 
+  Items? get getAllItem {
+    return items;
+  }
+
   Future<Items> getAll() async {
     final dio = Dio();
 

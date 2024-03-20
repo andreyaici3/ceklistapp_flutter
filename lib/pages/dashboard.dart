@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_test/pages/addItems.dart';
+import 'package:frontend_test/pages/edititems.dart';
 import 'package:frontend_test/utils/provider/ceklistprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -44,52 +45,90 @@ class _DashboardPagesState extends State<DashboardPages> {
                     child: ListView.builder(
                       itemCount: snapshot.data!.data.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Card(
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      Checkbox(
-                                        value:
-                                            snapshot.data!.data[index].items ??
+                        return Column(
+                          children: [
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Card(
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          Checkbox(
+                                            value: snapshot.data!.data[index]
+                                                    .checklistCompletionStatus ??
                                                 false,
-                                        onChanged: (value) {},
+                                            onChanged: (value) {},
+                                          ),
+                                          Text(snapshot.data!.data[index].name),
+                                        ],
                                       ),
-                                      Text(snapshot.data!.data[index].name),
-                                    ],
-                                  ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditItemsPages(
+                                              id: index,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text("Edit"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        cekList
+                                            .deleteItem(
+                                                snapshot.data!.data[index].id)
+                                            .then((value) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content:
+                                                      Text(value["message"])));
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const DashboardPages(),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      child: Text("Hapus"),
+                                    ),
+                                  ],
                                 ),
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text("Edit"),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    cekList
-                                        .deleteItem(
-                                            snapshot.data!.data[index].id)
-                                        .then((value) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(value["message"])));
-                                      Navigator.of(context)
-                                          .popUntil((route) => route.isFirst);
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const DashboardPages(),
-                                        ),
-                                      );
-                                    });
-                                  },
-                                  child: Text("Hapus"),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 20),
+                              child: Card(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          Checkbox(
+                                            value: false,
+                                            onChanged: (value) {},
+                                          ),
+                                          Text("Sub Item"),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       },
                     ));

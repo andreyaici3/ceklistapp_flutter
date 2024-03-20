@@ -39,7 +39,7 @@ class Items {
 class Datum {
   int id;
   String name;
-  dynamic items;
+  List<Item>? items;
   bool checklistCompletionStatus;
 
   Datum({
@@ -52,14 +52,42 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],
-        items: json["items"],
+        items: json["items"] == null
+            ? []
+            : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
         checklistCompletionStatus: json["checklistCompletionStatus"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "items": items,
+        "items": items == null
+            ? []
+            : List<dynamic>.from(items!.map((x) => x.toJson())),
         "checklistCompletionStatus": checklistCompletionStatus,
+      };
+}
+
+class Item {
+  int id;
+  String name;
+  bool itemCompletionStatus;
+
+  Item({
+    required this.id,
+    required this.name,
+    required this.itemCompletionStatus,
+  });
+
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
+        id: json["id"],
+        name: json["name"],
+        itemCompletionStatus: json["itemCompletionStatus"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "itemCompletionStatus": itemCompletionStatus,
       };
 }
