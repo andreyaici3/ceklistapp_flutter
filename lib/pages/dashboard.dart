@@ -135,7 +135,29 @@ class _DashboardPagesState extends State<DashboardPages> {
                                           child: const Text("Edit"),
                                         ),
                                         TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            cekList
+                                                .deleteSubItem(
+                                                    snapshot
+                                                        .data!.data[index].id,
+                                                    snapshot.data!.data[index]
+                                                        .items![index].id)
+                                                .then((value) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          value["message"])));
+                                              Navigator.of(context).popUntil(
+                                                  (route) => route.isFirst);
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const DashboardPages(),
+                                                ),
+                                              );
+                                            });
+                                          },
                                           child: Text("Hapus"),
                                         ),
                                       ],

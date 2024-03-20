@@ -59,4 +59,20 @@ class CekListProvider with ChangeNotifier {
 
     return response.data;
   }
+
+  Future deleteSubItem(int ceklisId, int id) async {
+    final dio = Dio();
+
+    final response = await dio.delete(
+      "$url/checklist/$ceklisId/item/$id",
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+      ),
+    );
+
+    return response.data;
+  }
 }
